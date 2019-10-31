@@ -132,7 +132,7 @@ node_identifier = str(uuid4()).replace('-', '')
 blockchain = Blockchain()
 
 
-@app.route('/mine', methods=['GET'])
+@app.route('/mine', methods=['POST'])
 def mine():
     # pull data from post
     values = request.get_json()
@@ -166,7 +166,7 @@ def mine():
 
 
 
-@app.route('/chain', methods=['GET'])
+@app.route('/chain', methods=['POST'])
 def full_chain():
     response = {
         'length': len(blockchain.chain),
@@ -174,7 +174,7 @@ def full_chain():
     }
     return jsonify(response), 200
 
-@app.route('/last_block', methods=['POST'])
+@app.route('/last_block', methods=['GET'])
 def last_block():
     response = {
         'last_block': blockchain.last_block

@@ -52,7 +52,7 @@ if __name__ == '__main__':
     f.close()
 
     coins_mined = 0
-    
+
     # Run forever until interrupted
     while True:
         r = requests.get(url=node + "/last_block")
