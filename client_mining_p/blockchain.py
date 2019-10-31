@@ -131,7 +131,7 @@ node_identifier = str(uuid4()).replace('-', '')
 blockchain = Blockchain()
 
 
-@app.route('/mine', methods=['GET'])
+@app.route('/mine', methods=['GET', 'POST'])
 def mine():
     # Run the proof of work algorithm to get the next proof
     proof = blockchain.proof_of_work(blockchain.last_block)
@@ -140,6 +140,8 @@ def mine():
     previous_hash = blockchain.hash(blockchain.last_block)
     block = blockchain.new_block(proof, previous_hash)
 
+    # pull data from post
+    data = request.get_json()
 
     response = {
         'message': "New Block Forged",
@@ -148,7 +150,7 @@ def mine():
         'proof': block['proof'],
         'previous_hash': block['previous_hash'],
     }
-    return jsonify(response), 200
+    return jsonify(response), 400
 
 @app.route('/chain', methods=['GET'])
 def full_chain():
